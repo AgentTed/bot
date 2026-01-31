@@ -1,16 +1,16 @@
-name: Mention Trigger Workflow
+name: Process Mention
 
 on:
   repository_dispatch:
-    types: [user_mentioned]
+    types: [mention_trigger]
 
 jobs:
-  run-on-mention:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get issue number and author
-        run: |
-          echo "Issue/PR number: ${{ github.event.issue.number || github.event.pull_request.number }}"
-          echo "Comment author: ${{ github.event.comment.user.login }}"
-          echo "Comment author: ${{ github.event.comment.body }}"
+  process_mention:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Echo the received data
+          run: |
+            echo "Mentioned by: ${{ github.event.client_payload.author }}"
+            echo "Comment: ${{ github.event.client_payload.comment_body }}"
+            echo "Link: ${{ github.event.client_payload.html_url }}"
 
