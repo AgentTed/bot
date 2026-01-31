@@ -1,0 +1,19 @@
+name: Mention Trigger Workflow
+
+on:
+  issue_comment:
+    types:
+      - created
+  pull_request_review_comment:
+    types:
+      - created
+jobs:
+  run-on-mention:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get issue number and author
+        run: |
+          echo "Issue/PR number: ${{ github.event.issue.number || github.event.pull_request.number }}"
+          echo "Comment author: ${{ github.event.comment.user.login }}"
+          echo "Comment author: ${{ github.event.comment.body }}"
+
